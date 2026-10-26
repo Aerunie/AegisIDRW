@@ -18,13 +18,14 @@ public class DatabaseConnection {
 
     public Connection getConnection() throws SQLException {
         try {
-String host = System.getenv("MYSQLHOST");
-String port = System.getenv("MYSQLPORT");
-String db   = System.getenv("MYSQLDATABASE");
-String user = System.getenv("MYSQLUSER");
-String pass = System.getenv("MYSQLPASSWORD");
+            // Lee las variables tanto si están en Railway como en tu PC local
+            String host = env("MYSQLHOST", "MYSQL_HOST", "localhost");
+            String port = env("MYSQLPORT", "MYSQL_PORT", "3306");
+            String db   = env("MYSQLDATABASE", "MYSQL_DATABASE", "aegisid");
+            String user = env("MYSQLUSER", "MYSQL_USER", "root");
+            String pass = env("MYSQLPASSWORD", "MYSQL_PASSWORD", "");
 
-String url = "jdbc:mysql://" + host + ":" + port + "/" + db + "?useSSL=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://" + host + ":" + port + "/" + db + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, user, pass);
