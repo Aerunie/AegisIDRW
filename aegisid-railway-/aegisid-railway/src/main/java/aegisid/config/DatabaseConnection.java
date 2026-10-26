@@ -18,14 +18,13 @@ public class DatabaseConnection {
 
     public Connection getConnection() throws SQLException {
         try {
-            String host = env("DB_HOST", "MYSQLHOST", "localhost");
-            String port = env("DB_PORT", "MYSQLPORT", "3306");
-            String db   = env("DB_NAME", "MYSQLDATABASE", "railway");
-            String user = env("DB_USER", "MYSQLUSER", "root");
-            String pass = env("DB_PASSWORD", "MYSQLPASSWORD", "");
+String host = System.getenv("MYSQLHOST");
+String port = System.getenv("MYSQLPORT");
+String db   = System.getenv("MYSQLDATABASE");
+String user = System.getenv("MYSQLUSER");
+String pass = System.getenv("MYSQLPASSWORD");
 
-            String url = "jdbc:mysql://" + host + ":" + port + "/" + db
-                    + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8";
+String url = "jdbc:mysql://" + host + ":" + port + "/" + db + "?useSSL=false&serverTimezone=UTC";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, user, pass);
